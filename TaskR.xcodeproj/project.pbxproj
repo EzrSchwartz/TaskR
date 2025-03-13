@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		633E48C72D7200FD006D690A /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 633E48C62D7200FD006D690A /* FirebaseFunctions */; };
+		639AE4562D72216500166C4C /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 639AE4552D72216500166C4C /* FirebaseDatabase */; };
 		63A749DD2D701657000A5F2E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 63A749DC2D701657000A5F2E /* FirebaseAuth */; };
 		63A749DF2D701657000A5F2E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 63A749DE2D701657000A5F2E /* FirebaseFirestore */; };
 		63A749E12D701657000A5F2E /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 63A749E02D701657000A5F2E /* FirebaseMessaging */; };
 		63A749E72D7019F3000A5F2E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 63A749E62D7019F3000A5F2E /* FirebaseAnalytics */; };
+		63B742F52D7FD7FA00A823EF /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 63B742F42D7FD7FA00A823EF /* FirebaseStorage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,9 +39,22 @@
 		63F2961E2D6FE42C0020E9B7 /* TaskRUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskRUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		639AE4522D721DD700166C4C /* Exceptions for "TaskR" folder in "TaskR" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 63F296032D6FE4260020E9B7 /* TaskR */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		63F296062D6FE4260020E9B7 /* TaskR */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				639AE4522D721DD700166C4C /* Exceptions for "TaskR" folder in "TaskR" target */,
+			);
 			path = TaskR;
 			sourceTree = "<group>";
 		};
@@ -60,9 +75,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				639AE4562D72216500166C4C /* FirebaseDatabase in Frameworks */,
 				63A749E12D701657000A5F2E /* FirebaseMessaging in Frameworks */,
 				63A749DD2D701657000A5F2E /* FirebaseAuth in Frameworks */,
 				633E48C72D7200FD006D690A /* FirebaseFunctions in Frameworks */,
+				63B742F52D7FD7FA00A823EF /* FirebaseStorage in Frameworks */,
 				63A749E72D7019F3000A5F2E /* FirebaseAnalytics in Frameworks */,
 				63A749DF2D701657000A5F2E /* FirebaseFirestore in Frameworks */,
 			);
@@ -130,6 +147,8 @@
 				63A749E02D701657000A5F2E /* FirebaseMessaging */,
 				63A749E62D7019F3000A5F2E /* FirebaseAnalytics */,
 				633E48C62D7200FD006D690A /* FirebaseFunctions */,
+				639AE4552D72216500166C4C /* FirebaseDatabase */,
+				63B742F42D7FD7FA00A823EF /* FirebaseStorage */,
 			);
 			productName = TaskR;
 			productReference = 63F296042D6FE4260020E9B7 /* TaskR.app */;
@@ -420,6 +439,7 @@
 				DEVELOPMENT_TEAM = 55GP43KTVG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TaskR/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -449,6 +469,7 @@
 				DEVELOPMENT_TEAM = 55GP43KTVG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TaskR/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -597,6 +618,11 @@
 			package = 63A749DB2D701657000A5F2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFunctions;
 		};
+		639AE4552D72216500166C4C /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 63A749DB2D701657000A5F2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
 		63A749DC2D701657000A5F2E /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 63A749DB2D701657000A5F2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
@@ -616,6 +642,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 63A749DB2D701657000A5F2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
+		};
+		63B742F42D7FD7FA00A823EF /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 63A749DB2D701657000A5F2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

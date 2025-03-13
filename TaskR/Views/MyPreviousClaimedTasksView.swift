@@ -1,8 +1,14 @@
+//
+//  MyPreviousClaimedTasksView.swift
+//  TaskR
+//
+//  Created by Ezra Schwartz on 3/11/25.
+//
 import SwiftUI
 import FirebaseFirestore
 import FirebaseAuth
 
-struct ClaimedTasksView: View {
+struct MyPreviousClaimedTasksView: View {
     @ObservedObject var viewModel: TaskViewModel
     @State private var navigateToChat = false
     @State private var selectedTaskID: String?
@@ -11,12 +17,12 @@ struct ClaimedTasksView: View {
     
     var body: some View {
         VStack {
-            if viewModel.currentClaimedTasks.isEmpty {
+            if viewModel.priorClaimedTasks.isEmpty {
                 Text("You Have No Current Tasks")
                     .font(.headline)
                     .padding()
             } else {
-                List(viewModel.currentClaimedTasks) { task in
+                List(viewModel.priorClaimedTasks) { task in
                     VStack(alignment: .leading, spacing: 8) {
                         Text(task.title)
                             .font(.headline)
@@ -72,54 +78,21 @@ struct ClaimedTasksView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.vertical, 4)
                         
-                        HStack(spacing: 12) {
-                            Button(action: {
-                                selectedTaskID = task.id
-                                selectedCreatorID = task.creatorID
-                                selectedAssigneeID = task.assigneeID ?? ""
-                                navigateToChat = true
-                            }) {
-                                Label("Chat", systemImage: "message.badge.fill")
-                                    .frame(maxWidth: .infinity)
-                            }
-                            .buttonStyle(.bordered)
-                            
-                            Button("Unclaim") {
-                                TaskService.shared.unclaimTask(taskID: task.id) { result in
-                                    switch result {
-                                    case .success:
-                                        viewModel.fetchClaimedTasks()
-                                    case .failure(let error):
-                                        print("Error unclaiming task: \(error.localizedDescription)")
-                                    }
-                                }
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .tint(.red)
-                            .frame(maxWidth: .infinity)
-                        }
+                       
                         .padding(.top, 8)
                     }
                     .padding(.vertical, 8)
                 }
                 .listStyle(InsetGroupedListStyle())
-                .navigationTitle("Claimed Tasks")
+                .navigationTitle("Prior Claimed Tasks")
             }
         }
         .onAppear {
-            viewModel.fetchCurrentClaimedTasks()
+            viewModel.fetchAllData()
         }
         .background(
-            NavigationLink(
-                destination: ChatView(
-                    taskID: selectedTaskID ?? "",
-                    creatorID: selectedCreatorID ?? "",
-                    assigneeID: selectedAssigneeID ?? ""
-                ),
-                isActive: $navigateToChat
-            ) {
-                EmptyView()
-            }
+ 
         )
     }
 }
+
