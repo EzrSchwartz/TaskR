@@ -8,10 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		633E48C72D7200FD006D690A /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 633E48C62D7200FD006D690A /* FirebaseFunctions */; };
+		638C03542D832665000243B4 /* MessageKit in Frameworks */ = {isa = PBXBuildFile; productRef = 638C03532D832665000243B4 /* MessageKit */; };
+		639AE4562D72216500166C4C /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 639AE4552D72216500166C4C /* FirebaseDatabase */; };
 		63A749DD2D701657000A5F2E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 63A749DC2D701657000A5F2E /* FirebaseAuth */; };
 		63A749DF2D701657000A5F2E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 63A749DE2D701657000A5F2E /* FirebaseFirestore */; };
 		63A749E12D701657000A5F2E /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 63A749E02D701657000A5F2E /* FirebaseMessaging */; };
 		63A749E72D7019F3000A5F2E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 63A749E62D7019F3000A5F2E /* FirebaseAnalytics */; };
+		63B742F52D7FD7FA00A823EF /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 63B742F42D7FD7FA00A823EF /* FirebaseStorage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,9 +40,22 @@
 		63F2961E2D6FE42C0020E9B7 /* TaskRUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskRUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		639AE4522D721DD700166C4C /* Exceptions for "TaskR" folder in "TaskR" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 63F296032D6FE4260020E9B7 /* TaskR */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		63F296062D6FE4260020E9B7 /* TaskR */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				639AE4522D721DD700166C4C /* Exceptions for "TaskR" folder in "TaskR" target */,
+			);
 			path = TaskR;
 			sourceTree = "<group>";
 		};
@@ -60,11 +76,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				639AE4562D72216500166C4C /* FirebaseDatabase in Frameworks */,
 				63A749E12D701657000A5F2E /* FirebaseMessaging in Frameworks */,
 				63A749DD2D701657000A5F2E /* FirebaseAuth in Frameworks */,
 				633E48C72D7200FD006D690A /* FirebaseFunctions in Frameworks */,
+				63B742F52D7FD7FA00A823EF /* FirebaseStorage in Frameworks */,
 				63A749E72D7019F3000A5F2E /* FirebaseAnalytics in Frameworks */,
 				63A749DF2D701657000A5F2E /* FirebaseFirestore in Frameworks */,
+				638C03542D832665000243B4 /* MessageKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +149,9 @@
 				63A749E02D701657000A5F2E /* FirebaseMessaging */,
 				63A749E62D7019F3000A5F2E /* FirebaseAnalytics */,
 				633E48C62D7200FD006D690A /* FirebaseFunctions */,
+				639AE4552D72216500166C4C /* FirebaseDatabase */,
+				63B742F42D7FD7FA00A823EF /* FirebaseStorage */,
+				638C03532D832665000243B4 /* MessageKit */,
 			);
 			productName = TaskR;
 			productReference = 63F296042D6FE4260020E9B7 /* TaskR.app */;
@@ -189,7 +211,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					63F296032D6FE4260020E9B7 = {
 						CreatedOnToolsVersion = 16.2;
@@ -215,6 +237,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				63A749DB2D701657000A5F2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				638C03522D832664000243B4 /* XCRemoteSwiftPackageReference "MessageKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 63F296052D6FE4260020E9B7 /* Products */;
@@ -325,6 +348,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 55GP43KTVG;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -388,6 +412,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 55GP43KTVG;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -414,12 +439,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TaskR/Preview Content\"";
-				DEVELOPMENT_TEAM = 55GP43KTVG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TaskR/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TeenTaskR;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -432,6 +460,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.EzraSchwartz.TaskR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -443,12 +472,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TaskR/Preview Content\"";
-				DEVELOPMENT_TEAM = 55GP43KTVG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TaskR/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TeenTaskR;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -461,6 +493,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.EzraSchwartz.TaskR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -473,7 +506,6 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 55GP43KTVG;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MARKETING_VERSION = 1.0;
@@ -492,7 +524,6 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 55GP43KTVG;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MARKETING_VERSION = 1.0;
@@ -510,7 +541,6 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 55GP43KTVG;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = EzraSchwartz.TaskRUITests;
@@ -527,7 +557,6 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 55GP43KTVG;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = EzraSchwartz.TaskRUITests;
@@ -581,6 +610,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		638C03522D832664000243B4 /* XCRemoteSwiftPackageReference "MessageKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MessageKit/MessageKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		63A749DB2D701657000A5F2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -596,6 +633,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 63A749DB2D701657000A5F2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFunctions;
+		};
+		638C03532D832665000243B4 /* MessageKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 638C03522D832664000243B4 /* XCRemoteSwiftPackageReference "MessageKit" */;
+			productName = MessageKit;
+		};
+		639AE4552D72216500166C4C /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 63A749DB2D701657000A5F2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
 		};
 		63A749DC2D701657000A5F2E /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -616,6 +663,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 63A749DB2D701657000A5F2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
+		};
+		63B742F42D7FD7FA00A823EF /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 63A749DB2D701657000A5F2E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

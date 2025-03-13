@@ -1,15 +1,17 @@
 import SwiftUI
 import FirebaseAuth
+import LocalAuthentication
 
-struct SigninView: View {
+struct SignInView: View {
     @Binding var isAuthenticated: Bool
-    @State private var usernameOrEmail = ""
+    @State private var email = ""
     @State private var password = ""
     @State private var errorMessage: String?
-    
+    @Environment(\.dismiss) private var dismiss // ✅ Fix: Use `.dismiss` instead of `presentationMode`
+
     var body: some View {
         VStack {
-            TextField("Username or Email", text: $usernameOrEmail)
+            TextField("Email", text: $email)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
                 .autocapitalization(.none)
@@ -25,16 +27,75 @@ struct SigninView: View {
             }
             
             Button("Log In") {
-                AuthService.shared.signInUser(usernameOremail: usernameOrEmail, password: password) { result in
-                    switch result {
-                    case .success:
-                        isAuthenticated = true
-                    case .failure(let error):
-                        errorMessage = error.localizedDescription
+                login(email: email, password: password)
+            }
+            .padding()
+            
+            Button("Use Face ID") {
+                authenticateWithFaceID()
+            }
+            .padding()
+            
+            Button("Back") {
+                dismiss() // ✅ Fix: Dismiss the current view properly
+            }
+            .padding()
+        }
+        .onAppear {
+            checkForStoredCredentials() // ✅ Automatically checks for stored credentials on launch
+        }
+    }
+    
+    public func login(email: String, password: String) {
+        AuthService.shared.signInUser(email: email, password: password) { result in
+            switch result {
+            case .success:
+                isAuthenticated = true
+                
+                saveCredentials() // ✅ Save credentials for Face ID
+            case .failure(let error):
+                errorMessage = error.localizedDescription
+            }
+        }
+    }
+    
+    private func authenticateWithFaceID() {
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Log in with Face ID") { success, authenticationError in
+                DispatchQueue.main.async {
+                    if success {
+                        self.loadCredentialsAndLogin()
+                    } else {
+                        self.errorMessage = "Face ID Authentication Failed."
                     }
                 }
             }
-            .padding()
+        } else {
+            errorMessage = "Face ID not available."
+        }
+    }
+    
+    private func saveCredentials() {
+        KeychainService.saveCredentials(email: email, password: password)
+    }
+    
+    private func checkForStoredCredentials() {
+        if let credentials = KeychainService.loadCredentials() {
+            email = credentials.email
+            password = credentials.password
+        }
+    }
+    
+    private func loadCredentialsAndLogin() {
+        if let credentials = KeychainService.loadCredentials() {
+            email = credentials.email
+            password = credentials.password
+            login(email: email, password: password) // ✅ Auto-login after Face ID success
+        } else {
+            errorMessage = "No saved credentials found."
         }
     }
 }
