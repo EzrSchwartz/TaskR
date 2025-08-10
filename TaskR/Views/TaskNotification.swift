@@ -5,12 +5,15 @@
 //  Created by Ezra Schwartz on 3/12/25.
 //
 
+// Notification names
+
 
 import Foundation
 
 // Define a global notification name for task approval
 extension Notification.Name {
     static let taskApproved = Notification.Name("TaskApproved")
+    static let taskCompleted = Notification.Name("TaskCompleted")
 }
 
 // MARK: - Task Notification Model
@@ -24,8 +27,10 @@ struct TaskNotification: Identifiable, Codable {
     var read: Bool
 }
 
+
 enum NotificationType: String, Codable {
     case claimRequest = "claimRequest"
     case claimApproved = "claimApproved"
     case claimRejected = "claimRejected"
+    case taskCompleted = "taskCompleted"
 }

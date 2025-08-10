@@ -1,43 +1,10 @@
-////
-////  KidHomeView.swift
-////  TaskR
-////
-////  Created by Ezra Schwartz on 3/11/25.
-////
-//
-//import SwiftUI
-//import FirebaseAuth
-//
-//struct KidHomeView: View {
-//    @ObservedObject var viewModel: TaskViewModel
-//    
-//    var body: some View {
-//        TabView {
-//            // Your available tasks view
-//            TaskListView(viewModel: viewModel)
-//                .tabItem { Label("Available", systemImage: "list.bullet") }
-//            
-//            // Your current tasks view
-//            ClaimedTasksView(viewModel: viewModel)
-//                .tabItem { Label("My Tasks", systemImage: "checkmark.circle") }
-//
-//            // Profile tab
-//            Text("Profile")
-//                .tabItem { Label("Profile", systemImage: "person.crop.circle") }
-//        }
-//        .onAppear {
-//            viewModel.fetchAllData()
-//        }
-//    }
-//}
-
-
 //
 //  KidHomeView.swift
 //  TaskR
 //
 //  Created by Ezra Schwartz on 3/11/25.
 //
+
 
 import SwiftUI
 import FirebaseAuth
@@ -51,31 +18,44 @@ struct KidHomeView: View {
             // Available tasks view
             TaskListView(viewModel: viewModel)
                 .tabItem {
-                    Label("Available", systemImage: "list.bullet")
+                    Image(systemName: "list.bullet")
+                    Text("Available")
                 }
                 .tag(0)
             
             // Claimed tasks view
             ClaimedTasksView(viewModel: viewModel)
                 .tabItem {
-                    Label("My Tasks", systemImage: "checkmark.circle")
+                    Image(systemName: "checkmark.circle")
+                    Text("My Tasks")
                 }
                 .tag(1)
+            
+            MyPreviousClaimedTasksView(viewModel: viewModel)
+                .tabItem{
+                    Image(systemName: "clock.arrow.trianglehead.counterclockwise.rotate.90")
+                    Text("Prior Tasks")
+                }
+                .tag(2)
             
             // Profile tab
             ZStack {
                 if let currentUserID = Auth.auth().currentUser?.uid {
-                    UserProfileView(userID: currentUserID, isEditable: true)
+                    KidUserProfileView(userID: currentUserID, isEditable: true)
                 } else {
                     Text("Please log in to view your profile")
+                        .foregroundColor(AppColors.secondaryGray)
                 }
             }
             .tabItem {
-                Label("Profile", systemImage: "person.crop.circle")
+                Image(systemName: "person.crop.circle")
+                Text("Profile")
             }
-            .tag(2)
+            .tag(3)
         }
+        .accentColor(AppColors.primaryGreen) // Use your primary color for tab selection
         .onAppear {
+            
             viewModel.fetchAllData()
         }
     }

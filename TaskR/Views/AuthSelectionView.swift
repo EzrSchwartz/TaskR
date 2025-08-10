@@ -1,14 +1,18 @@
 import SwiftUI
 import FirebaseAuth
 
+
 struct AuthSelectionView: View {
+    let pearlWhite = Color(red: 245/255, green: 245/255, blue: 240/255)
+    let forestGreen = Color(red: 34/255, green: 139/255, blue: 34/255)
+
     @Binding var isAuthenticated: Bool
     @State private var isSigningUp = false
     var body: some View {
         ZStack {
             // Background gradient
             LinearGradient(
-                gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.purple.opacity(0.8)]),
+                gradient: Gradient(colors: [Color(AppColors.pearlWhite).opacity(0.8), Color(AppColors.forestGreen).opacity(0.8)]),
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
@@ -18,7 +22,7 @@ struct AuthSelectionView: View {
                 // App logo or title
                 Text("TaskR")
                     .font(.system(size: 48, weight: .bold, design: .rounded))
-                    .foregroundColor(.white)
+                    .foregroundColor(Color(AppColors.forestGreen))
                     .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 5)
                 
                 Spacer()
@@ -32,10 +36,10 @@ struct AuthSelectionView: View {
                         Text("Log In")
                     }
                     .font(.system(size: 20, weight: .semibold, design: .rounded))
-                    .foregroundColor(.white)
+                    .foregroundColor(Color(AppColors.pearlWhite))
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color.blue.opacity(0.7))
+                    .background(Color(AppColors.forestGreen).opacity(0.7))
                     .cornerRadius(15)
                     .shadow(color: .black.opacity(0.3), radius: 10, x: 0, y: 10)
                 }
@@ -49,10 +53,10 @@ struct AuthSelectionView: View {
                         Text("Sign Up")
                     }
                     .font(.system(size: 20, weight: .semibold, design: .rounded))
-                    .foregroundColor(.white)
+                    .foregroundColor(Color(AppColors.forestGreen))
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color.purple.opacity(0.7))
+                    .background(Color(AppColors.pearlWhite).opacity(0.7))
                     .cornerRadius(15)
                     .shadow(color: .black.opacity(0.3), radius: 10, x: 0, y: 10)
                 }
@@ -71,3 +75,5 @@ struct AuthSelectionView: View {
     
     @State private var isLoggingIn = false
 }
+
+

@@ -58,7 +58,7 @@ struct ContentView: View {
     @State private var userRole: String? = nil
 
     private let sessionTimeoutInterval: TimeInterval = 1000 // 30 minutes
-
+    
     var body: some View {
         Group {
             if isLoading {

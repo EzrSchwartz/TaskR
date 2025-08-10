@@ -119,7 +119,7 @@ struct PendingTaskRequestsView: View {
                                 NavigationView {
                                     VStack {
                                         // Embed the UserProfileView
-                                        UserProfileView(userID: request.requesterID, isEditable: false)
+                                        KidUserProfileView(userID: request.requesterID, isEditable: false)
                                         
                                         // Add approval buttons at the bottom
                                         VStack(spacing: 16) {

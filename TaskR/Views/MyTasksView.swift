@@ -1,270 +1,3 @@
-//import SwiftUI
-//import FirebaseFirestore
-//import FirebaseAuth
-//struct MyTasksView: View {
-//    @StateObject var viewModel = TaskViewModel()
-//    @State private var selectedTask: Task? = nil
-//    
-//    var body: some View {
-//        NavigationView {
-//            Group {
-//                if viewModel.myTasks.isEmpty {
-//                    Text("You haven't created any tasks yet")
-//                        .font(.headline)
-//                        .foregroundColor(.gray)
-//                        .padding()
-//                } else {
-//                    List(viewModel.myTasks, id: \.id) { task in
-//                        taskCell(task)
-//                            .swipeActions {
-//                                Button(role: .destructive) {
-//                                    deleteTask(task)
-//                                } label: {
-//                                    Label("Delete", systemImage: "trash")
-//                                }
-//                            }
-//                    }
-//                }
-//            }
-//            .navigationTitle("My Tasks")
-//            .sheet(item: $selectedTask) { task in
-//                RequestersView(task: task)
-//            }
-//            .onAppear {
-//                viewModel.fetchMyTasks()
-//            }
-//        }
-//    }
-//    
-//    private func taskCell(_ task: Task) -> some View {
-//        VStack(alignment: .leading, spacing: 8) {
-//            HStack {
-//                Text(task.title)
-//                    .font(.headline)
-//                
-//                Spacer()
-//                
-//                Text(task.status.capitalized)
-//                    .font(.caption)
-//                    .foregroundColor(statusColor(task.status))
-//                    .padding(4)
-//                    .background(statusColor(task.status).opacity(0.2))
-//                    .cornerRadius(4)
-//            }
-//            
-//            Text(task.description)
-//                .font(.subheadline)
-//                .lineLimit(2)
-//            HStack{
-//                Text("\(task.assignees.count)) / \(task.people)")
-//                    
-//                
-//            }
-//            HStack {
-//                Text("Due: \(task.dueDate, style: .date)")
-//                Spacer()
-//                Text("\(task.assignees.count) requests")
-//            }
-//            .font(.caption)
-//            .foregroundColor(.gray)
-//            
-//            Button("View Requests") {
-//                selectedTask = task
-//            }
-//            .buttonStyle(.bordered)
-//            .disabled(task.assignees.isEmpty)
-//        }
-//        .padding(.vertical, 8)
-//    }
-//    
-//    private func statusColor(_ status: String) -> Color {
-//        switch status {
-//        case "available": return .blue
-//        case "inProgress": return .orange
-//        case "completed": return .green
-//        default: return .gray
-//        }
-//    }
-//    
-//    private func deleteTask(_ task: Task) {
-//        TaskService.shared.deleteTask(taskID: task.id) { result in
-//            switch result {
-//            case .success:
-//                viewModel.fetchMyTasks()
-//            case .failure(let error):
-//                print("Delete error: \(error.localizedDescription)")
-//            }
-//        }
-//    }
-//}
-//
-//struct RequestersView: View {
-//    let task: Task
-//    @State private var requesters: [UserProfile] = []
-//    
-//    var body: some View {
-//        NavigationView {
-//            Group {
-//                if requesters.isEmpty {
-//                    Text("No pending requests")
-//                        .font(.headline)
-//                        .foregroundColor(.gray)
-//                        .padding()
-//                } else {
-//                    List(requesters) { user in
-//                        RequesterProfileView(user: user, task: task)
-//                    }
-//                }
-//            }
-//            .navigationTitle("Task Requests")
-//            .onAppear {
-//                fetchRequesters()
-//            }
-//        }
-//    }
-//    
-//    private func fetchRequesters() {
-//        let group = DispatchGroup()
-//        var profiles = [UserProfile]()
-//        
-//        for assignee in task.assignees {
-//            group.enter()
-//            UserService.shared.fetchUserProfile(userID: assignee.userID) { profile in
-//                if let profile = profile {
-//                    profiles.append(profile)
-//                }
-//                group.leave()
-//            }
-//        }
-//        
-//        group.notify(queue: .main) {
-//            requesters = profiles
-//        }
-//    }
-//}
-//
-//struct RequesterProfileView: View {
-//    let user: UserProfile
-//    let task: Task
-//    @State private var showingActionSheet = false
-//    
-//    var body: some View {
-//        VStack(alignment: .leading, spacing: 12) {
-//            HStack {
-//                Text(user.username)
-//                    .font(.title3.bold())
-//                
-//                Spacer()
-//                
-//                if isApproved {
-//                    Image(systemName: "checkmark.seal.fill")
-//                        .foregroundColor(.green)
-//                }
-//            }
-//            
-//            Text(user.bio)
-//                .font(.body)
-//                .foregroundColor(.secondary)
-//            
-//            WrapView(items: user.interests, spacing: 8) { interest in
-//                Text(interest)
-//                    .font(.caption)
-//                    .padding(6)
-//                    .background(Color.blue.opacity(0.1))
-//                    .cornerRadius(6)
-//            }
-//            
-//            if !isApproved {
-//                HStack {
-//                    Button("Approve") {
-//                        approveRequest()
-//                    }
-//                    .buttonStyle(.borderedProminent)
-//                    .tint(.green)
-//                    
-//                    Button("Reject") {
-//                        rejectRequest()
-//                    }
-//                    .buttonStyle(.borderedProminent)
-//                    .tint(.red)
-//                }
-//            }
-//        }
-//        .padding()
-//        .contextMenu {
-//            if !isApproved {
-//                Button("Approve Request") {
-//                    approveRequest()
-//                }
-//                
-//                Button("Reject Request") {
-//                    rejectRequest()
-//                }
-//            }
-//        }
-//    }
-//    
-//    private var isApproved: Bool {
-//        task.assignees.first { $0.userID == user.id }?.approved ?? false
-//    }
-//    
-//    private func approveRequest() {
-//        TaskService.shared.approveClaimRequest(taskID: task.id, assigneeID: user.id) { _ in }
-//    }
-//    
-//    private func rejectRequest() {
-//        TaskService.shared.rejectClaimRequest(taskID: task.id, assigneeID: user.id) { _ in }
-//    }
-//}
-//
-//// MARK: - Helper Views
-//// This can stay here as it's only used in this view
-//struct WrapView<Content: View, T: Hashable>: View {
-//    let items: [T]
-//    let spacing: CGFloat
-//    let content: (T) -> Content
-//    
-//    var body: some View {
-//        GeometryReader { geometry in
-//            self.generateContent(in: geometry)
-//        }
-//    }
-//    
-//    private func generateContent(in geometry: GeometryProxy) -> some View {
-//        var width = CGFloat.zero
-//        var height = CGFloat.zero
-//        
-//        return ZStack(alignment: .topLeading) {
-//            ForEach(items, id: \.self) { item in
-//                content(item)
-//                    .padding(.all, 4)
-//                    .alignmentGuide(.leading) { d in
-//                        if (abs(width - d.width) > geometry.size.width) {
-//                            width = 0
-//                            height -= d.height
-//                        }
-//                        let result = width
-//                        if item == self.items.last! {
-//                            width = 0
-//                        } else {
-//                            width -= d.width + self.spacing
-//                        }
-//                        return result
-//                    }
-//                    .alignmentGuide(.top) { d in
-//                        let result = height
-//                        if item == self.items.last! {
-//                            height = 0
-//                        }
-//                        return result
-//                    }
-//            }
-//        }
-//    }
-//}
-
-
-
 import SwiftUI
 import FirebaseFirestore
 import FirebaseAuth
@@ -273,7 +6,7 @@ import FirebaseFirestore
 import FirebaseAuth
 
 struct MyTasksView: View {
-    @ObservedObject var viewModel: TaskViewModel
+    @StateObject var viewModel: TaskViewModel
     @State private var selectedTask: Task? = nil
     @State private var showRequesters = false
     @State private var showTaskDetails = false
@@ -405,6 +138,7 @@ struct MyTasksView: View {
 
 // Original RequestersView (kept from the original implementation)
 struct RequestersView: View {
+    
     let task: Task
     @State private var requesters: [UserProfile] = []
     @State private var isLoading = true
@@ -626,9 +360,7 @@ struct RequesterProfileView: View {
     }
 }
 
-// New Task Details View for Task Creator
 
-// Update CreatorTaskDetailsView in MyTasksView.swift
 
 struct CreatorTaskDetailsView: View {
     let task: Task
@@ -721,7 +453,13 @@ struct CreatorTaskDetailsView: View {
                     // Action buttons
                     if task.status == "inProgress" {
                         Button(action: {
-                            showingCompleteAlert = true
+                            // Only show alert if there are approved assignees to rate
+                            if task.assignees.filter({ $0.approved }).isEmpty {
+                                // No assignees, just mark as completed
+                                completeTask()
+                            } else {
+                                showingCompleteAlert = true
+                            }
                         }) {
                             HStack {
                                 Image(systemName: "checkmark.circle.fill")
@@ -774,6 +512,9 @@ struct CreatorTaskDetailsView: View {
                             .cornerRadius(10)
                             .padding(.top, 8)
                         }
+                    }
+                    if task.status == "completed" {
+                        ratingButton
                     }
                 }
                 .padding()
@@ -851,6 +592,22 @@ struct CreatorTaskDetailsView: View {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         return formatter.string(from: date)
+    }
+    
+    private func completeTask() {
+        TaskService.shared.updateTaskStatus(task: task, status: "completed") { result in
+            switch result {
+            case .success:
+                // Notify assignees
+                for assignee in task.assignees.filter({ $0.approved }) {
+                    // Send notification that task is completed
+                }
+                dismiss()
+                onClosed()
+            case .failure(let error):
+                print("Error completing task: \(error.localizedDescription)")
+            }
+        }
     }
 }
 // Assignees List View
@@ -964,4 +721,42 @@ struct WrapView<Content: View, T: Hashable>: View {
 // Add this notification name extension
 extension Notification.Name {
     static let showRequests = Notification.Name("showRequests")
+}
+
+
+extension CreatorTaskDetailsView {
+    // Add this function to the existing view
+    private func showRatingUI(for assignee: Assignee) {
+        // Create a sheet to show rating UI
+        let ratingView = UserRatingView.forAssignee(task: task, assignee: assignee)
+        
+        // Use UIKit's presentation if SwiftUI presentation is problematic
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let rootVC = windowScene.windows.first?.rootViewController {
+            
+            let hostingController = UIHostingController(rootView: ratingView)
+            rootVC.present(hostingController, animated: true)
+        }
+    }
+    
+    // Add a button to rate assignees in the detailed view
+    var ratingButton: some View {
+        Button(action: {
+            showingRatingView = true
+        }) {
+            HStack {
+                Image(systemName: "star.fill")
+                Text("Rate Assignees")
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(Color.yellow)
+            .foregroundColor(.white)
+            .cornerRadius(10)
+            .padding(.top, 8)
+        }
+        .sheet(isPresented: $showingRatingView) {
+            TaskCompletionView(task: task)
+        }
+    }
 }
