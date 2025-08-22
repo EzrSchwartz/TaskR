@@ -22,6 +22,8 @@ struct UserProfile: Identifiable {
     let age: String?
     let averageRating: Double?
     let totalRatings: Int?
+    let blockedUsers: [String]?
+    
     
     // For compatibility with existing code
     var selectedInterests: [String] {
@@ -89,7 +91,8 @@ class UserService {
                 isKid: isKid,
                 age: age,
                 averageRating: averageRating,
-                totalRatings: totalRatings
+                totalRatings: totalRatings,
+                blockedUsers: []
             )
             
             print("✅ User profile fetched successfully: \(username)")

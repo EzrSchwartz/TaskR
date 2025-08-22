@@ -5,44 +5,6 @@
 //  Created by Ezra Schwartz on 4/22/25.
 //
 
-//
-//import SwiftUI
-//
-//struct UserRatingView: View {
-//    let profile: UserProfile
-//    
-//    var body: some View {
-//        VStack(alignment: .leading, spacing: 6) {
-//            Text("Rating")
-//                .font(.headline)
-//                .foregroundColor(.primary)
-//            
-//            HStack(alignment: .center, spacing: 12) {
-//                if let rating = profile.averageRating, let total = profile.totalRatings, total > 0 {
-//                    // Show star rating
-//                    StarRatingView(
-//                        rating: rating,
-//                        maxRating: 5,
-//                        size: 16,
-//                        color: .yellow
-//                    )
-//                    
-//                    Text("\(String(format: "%.1f", rating)) (\(total) \(total == 1 ? "rating" : "ratings"))")
-//                        .font(.subheadline)
-//                        .foregroundColor(.gray)
-//                } else {
-//                    Text("No ratings yet")
-//                        .font(.subheadline)
-//                        .foregroundColor(.gray)
-//                        .italic()
-//                }
-//            }
-//        }
-//        .padding()
-//        .background(Color.gray.opacity(0.1))
-//        .cornerRadius(10)
-//    }
-//}
 
 
 import SwiftUI

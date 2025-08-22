@@ -36,6 +36,10 @@ struct SignInView: View {
             }
             .padding()
             
+            Button("Forgot Password?") {
+                resetPassword()
+            }
+            .padding()
             Button("Back") {
                 dismiss() // ✅ Fix: Dismiss the current view properly
             }
@@ -45,6 +49,24 @@ struct SignInView: View {
             checkForStoredCredentials() // ✅ Automatically checks for stored credentials on launch
         }
     }
+    
+    private func resetPassword() {
+        guard !email.isEmpty else {
+            errorMessage = "Please enter your email to reset your password."
+            return
+        }
+        
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            if let error = error {
+                self.errorMessage = error.localizedDescription
+            } else {
+                print("📧 Attempting to reset password for: \(email)")
+
+                self.errorMessage = "Password reset email sent. Check your inbox."
+            }
+        }
+    }
+    
     
     public func login(email: String, password: String) {
         AuthService.shared.signInUser(email: email, password: password) { result in
