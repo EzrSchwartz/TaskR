@@ -1,52 +1,6 @@
-import SwiftUI
-import FirebaseAuth
-import FirebaseFirestore
+//Created By Ezra Schwartz
 
-//struct ContentView: View {
-//    @StateObject private var viewModel = TaskViewModel()
-//    @State private var isAuthenticated = false
-//    @State private var isLoading = true
-//    @State private var userRole: String? = nil
-//    @State private var navigationPath = NavigationPath()
-//
-//
-//    private let sessionTimeoutInterval: TimeInterval = 1000 // 30 minutes
-//
-//    var body: some View {
-//        Group {
-//            if isLoading {
-//                ProgressView("Loading...")
-//                    .onAppear {
-//                        checkAuthentication()
-//                    }
-//            } else if isAuthenticated {
-//                
-//                if let role = userRole {
-//                    if role == "Kid" {
-//                        KidHomeView(viewModel: viewModel)
-//                    } else if role == "Adult" {
-//                        AdultHomeView(viewModel: viewModel)
-//                    }
-//                } else {
-//                    ProgressView("Loading role...")
-//                        .onAppear{
-//                            print(isAuthenticated)
-//                            
-//                            checkAuthentication()
-//                            print(userRole)
-//                            
-//                        }
-//                }
-//            } else {
-//                AuthSelectionView(isAuthenticated: $isAuthenticated)
-//                    .onChange(of: isAuthenticated) { _, newValue in
-//                        if newValue {
-//                            checkAuthentication()
-//                        }
-//                    }
-//            }
-//        }
-//    }
+
 import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
@@ -56,6 +10,7 @@ struct ContentView: View {
     @State private var isAuthenticated = false
     @State private var isLoading = true
     @State private var userRole: String? = nil
+    @State private var hasAgreedToEULA = UserDefaults.standard.bool(forKey: "hasAgreedToEULA")
 
     private let sessionTimeoutInterval: TimeInterval = 1000 // 30 minutes
     
@@ -70,7 +25,12 @@ struct ContentView: View {
                 // Key change: Use an ID to force view recreation when auth state changes
                 Group {
                     if let role = userRole {
-                        if role == "Kid" {
+                        if !hasAgreedToEULA {
+                            EULAView {
+                                UserDefaults.standard.set(true, forKey: "hasAgreedToEULA")
+                                hasAgreedToEULA = true
+                            }
+                        } else if role == "Kid" {
                             KidHomeView(viewModel: viewModel)
                                 .navigationBarBackButtonHidden(true)
                         } else if role == "Adult" {

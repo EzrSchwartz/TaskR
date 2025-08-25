@@ -1,3 +1,11 @@
+//
+//  EULAView.swift
+//  TaskR
+//
+//  Created by Ezra on 8/25/25.
+//
+
+
 import SwiftUI
 
 struct EULAView: View {
@@ -14,7 +22,7 @@ struct EULAView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
             
-            Link("View Terms of Service", destination: URL(string: "https://yourwebsite.com/terms")!)
+            Link("View Terms of Service", destination: URL(string: "https://aboutteentaskr.com/terms.html")!)
                 .foregroundColor(.blue)
             
             Spacer()
